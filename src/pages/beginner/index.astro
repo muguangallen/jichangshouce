@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { articles } from '../../data/articles';
+
+const beginnerArticles = articles.filter(a => a.category === '新手入门' || a.category === '避坑与安全' || a.category === '机场推荐');
+const breadcrumbs = [{ label: '新手入门' }];
+---
+<BaseLayout
+  title="新手入门 - 机场与梯子从 0 到 1 基础指南与避坑"
+  description="面向第一次接触机场、节点与梯子的小白用户，解释机场原理、机场与梯子区别、套餐流量计算与客户端软件配置方法。"
+  schemaType="CollectionPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">新手入门与小白指南</h1>
+      <p class="section-desc">
+        搞懂机场与梯子的本质区别，学习如何看懂套餐参数、避免虚假宣传与高倍率陷阱。先讲人话，再讲技术。
+      </p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 3rem;">
+      <div class="card">
+        <h3 class="card-title">1. 基础概念全普及</h3>
+        <p class="card-body">机场是什么？梯子是什么？机场订阅链接是如何工作的？IPLC 专线与 BGP 中转有什么不同？从零搭建你的知识坐标。</p>
+        <a href="/encyclopedia/" class="btn btn-outline btn-sm">查看网络术语词典 →</a>
+      </div>
+      <div class="card">
+        <h3 class="card-title">2. 小白选购避坑原则</h3>
+        <p class="card-body">警惕无理超低价年付陷阱、认准“优先月付”、看清 1.0x 倍率扣费与设备连接限制，保护个人财产与账号安全。</p>
+        <a href="/article/jichang-paolu-bingkeng/" class="btn btn-outline btn-sm">阅读跑路预警指南 →</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">新手必读深度指南</h2>
+    <div class="grid-3">
+      {beginnerArticles.map(article => (
+        <div class="card">
+          <span class="badge badge-green" style="width:fit-content;margin-bottom:0.5rem;">{article.category}</span>
+          <h3 class="card-title" style="font-size:1.1rem;">
+            <a href={`/article/${article.slug}/`} style="color:var(--color-primary);text-decoration:none;">
+              {article.title}
+            </a>
+          </h3>
+          <p class="card-body" style="font-size:0.875rem;">
+            {article.description}
+          </p>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:0.775rem;color:var(--text-light);">
+            <span>{article.publishDate}</span>
+            <a href={`/article/${article.slug}/`} style="font-weight:600;">阅读指南 →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

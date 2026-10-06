@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DecisionGuide from '../components/DecisionGuide.astro';
+import ProviderCard from '../components/ProviderCard.astro';
+import FaqItem from '../components/FaqItem.astro';
+import AffiliateLink from '../components/AffiliateLink.astro';
+import { top6Providers, providers } from '../data/providers';
+import { faqs } from '../data/faq';
+import { articles } from '../data/articles';
+import { terms } from '../data/encyclopedia';
+
+const homepageFaqs = faqs.slice(0, 8);
+const selectedArticles = articles.slice(0, 6);
+const dictionaryTerms = terms.slice(0, 6);
+---
+
+<BaseLayout 
+  title="机场手册｜机场推荐、梯子选择与网络工具使用指南"
+  description="面向普通中文用户，整理机场、梯子、节点、线路、套餐和客户端资料，帮助第一次接触机场的小白理解选择逻辑并比较不同网络服务。"
+  schemaType="WebSite"
+>
+  <!-- Hero Section -->
+  <section class="hero-editorial">
+    <div class="container">
+      <span class="hero-eyebrow">2026 网络服务选购手册</span>
+      <h1 class="hero-title">机场推荐怎么选？从套餐、节点到客户端，一次看懂</h1>
+      <p class="hero-subtitle">
+        面向第一次选择机场和梯子的用户，整理价格、流量、线路、节点、Clash、小火箭等常见问题，先把选择逻辑讲清楚，再帮助你比较不同服务。
+      </p>
+      <div class="hero-actions">
+        <a href="/recommendations/" class="btn btn-primary">开始选机场</a>
+        <a href="#wizard" class="btn btn-secondary">我不知道怎么选 (选购向导)</a>
+        <a href="/beginner/" class="btn btn-outline">新手入门</a>
+        <a href="/service/" class="btn btn-outline">查看品牌服务库 ({providers.length})</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Decision Guide Wizard -->
+  <section class="section">
+    <div class="container">
+      <DecisionGuide />
+    </div>
+  </section>
+
+  <!-- Section 2: Editor Picks / Top 6 Providers -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">编辑精选服务商库</h2>
+        <p class="section-desc">固定展示服务库前六位品牌，基于公开资料整理，拒绝随打乱与虚假评分。</p>
+      </div>
+
+      <div class="grid-3">
+        {top6Providers.map((provider, idx) => (
+          <ProviderCard provider={provider} rank={idx + 1} />
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="/service/" class="btn btn-outline">查看全部 28 个服务商品牌库 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Select by Budget & Scenario -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">按预算与场景智能选择</h2>
+        <p class="section-desc">没有所谓的“绝对最佳”，只有最适合你个人使用习惯的选购方案。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">按月预算选购</h3>
+          <p class="card-body">从￥20轻度入门档，到￥30主力专线档，再到￥60+大流量商业档的精算指南。</p>
+          <a href="/plans/" class="btn btn-outline btn-sm">查看预算决策模型 →</a>
+        </div>
+        <div class="card">
+          <h3 class="card-title">按应用场景选购</h3>
+          <p class="card-body">适配 4K 视频追剧、ChatGPT/Claude AI 生产力工具、出差备用及多设备共享。</p>
+          <a href="/recommendations/" class="btn btn-outline btn-sm">按场景查看建议 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Client Tutorials Entry -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">客户端软件配置与教程</h2>
+        <p class="section-desc">一键导入订阅，解决 Windows、macOS、iOS、Android 跨平台连接问题。</p>
+      </div>
+
+      <div class="grid-2" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+        <a href="/clients/windows/" class="card" style="text-decoration:none;">
+          <h4 style="color:var(--color-primary);margin-bottom:0.4rem;">Windows 平台</h4>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;">Clash Verge Rev 最全配置教程</p>
+        </a>
+        <a href="/clients/macos/" class="card" style="text-decoration:none;">
+          <h4 style="color:var(--color-primary);margin-bottom:0.4rem;">macOS 苹果电脑</h4>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;">Stash & Clash 优雅使用指南</p>
+        </a>
+        <a href="/clients/ios/" class="card" style="text-decoration:none;">
+          <h4 style="color:var(--color-primary);margin-bottom:0.4rem;">iOS (iPhone / iPad)</h4>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;">小火箭 Shadowrocket 订阅导入</p>
+        </a>
+        <a href="/clients/android/" class="card" style="text-decoration:none;">
+          <h4 style="color:var(--color-primary);margin-bottom:0.4rem;">Android 安卓系统</h4>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;">V2RayNG 与 sing-box 导入与防杀后台</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Encyclopedia Terms Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">网络术语词典速查</h2>
+        <p class="section-desc">先讲人话，再讲技术。通俗易懂地普及专有名词与物理线路原理。</p>
+      </div>
+
+      <div class="grid-3">
+        {dictionaryTerms.map(term => (
+          <div class="card">
+            <span class="badge" style="width:fit-content;margin-bottom:0.5rem;">{term.category}</span>
+            <h4 style="color:var(--color-primary);margin:0 0 0.4rem 0;">{term.term}</h4>
+            <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem;">
+              {term.summary}
+            </p>
+            <a href={`/encyclopedia/#${term.slug}`} style="font-size:0.85rem;font-weight:600;margin-top:auto;">查看完整解释 →</a>
+          </div>
+        ))}
+      </div>
+
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="/encyclopedia/" class="btn btn-outline">进入完整网络术语词典 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: FAQ Preview -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">常见问题与疑难解答 (FAQ)</h2>
+        <p class="section-desc">预置 100 个精准问答静态文本，全面覆盖小白选购、订阅报错与故障排障。</p>
+      </div>
+
+      <div class="faq-list-preview">
+        {homepageFaqs.map(faq => (
+          <FaqItem faq={faq} defaultOpen={true} />
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="/faq/" class="btn btn-primary">查看全部 100 个 FAQ 问答库 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Latest Articles -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">最新编辑指南与深入科普</h2>
+        <p class="section-desc">由专业编辑团队撰写的高质量长文指南，助你理清使用逻辑。</p>
+      </div>
+
+      <div class="grid-3">
+        {selectedArticles.map(article => (
+          <div class="card">
+            <span class="badge badge-amber" style="width:fit-content;margin-bottom:0.5rem;">{article.category}</span>
+            <h3 class="card-title" style="font-size:1.1rem;">
+              <a href={`/article/${article.slug}/`} style="color:var(--color-primary);text-decoration:none;">
+                {article.title}
+              </a>
+            </h3>
+            <p class="card-body" style="font-size:0.875rem;line-height:1.6;">
+              {article.description}
+            </p>
+            <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:0.775rem;color:var(--text-light);">
+              <span>{article.publishDate}</span>
+              <a href={`/article/${article.slug}/`} style="font-weight:600;">阅读全文 →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

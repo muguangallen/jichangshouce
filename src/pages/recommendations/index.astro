@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DecisionGuide from '../../components/DecisionGuide.astro';
+import ProviderCard from '../../components/ProviderCard.astro';
+import { providers } from '../../data/providers';
+
+const breadcrumbs = [{ label: '机场推荐' }];
+---
+<BaseLayout
+  title="机场推荐决策页 - 机场推荐怎么选？按预算、场景与设备挑选"
+  description="机场推荐非硬性排行榜，提供按预算（￥20/￥30/￥60+）、按流量、按设备政策以及按应用场景（视频/AI/出差）的科学挑选建议与品牌库。"
+  schemaType="CollectionPage"
+  breadcrumbItems={[{ name: '机场推荐', url: 'https://jichangshouce.com/recommendations/' }]}
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">机场推荐决策指南</h1>
+      <p class="section-desc">
+        这里不是商业竞价排行榜。我们不强调所谓的“全网最佳”，而是帮助你建立清晰的选购逻辑，按预算、流量、设备政策与真实场景比较适合你的服务。
+      </p>
+    </div>
+
+    <!-- Decision Wizard -->
+    <div style="margin-bottom: 3rem;">
+      <DecisionGuide />
+    </div>
+
+    <!-- Recommendation Matrix Section -->
+    <div class="editorial-note" style="margin-bottom: 2.5rem;">
+      <h4>💡 挑选前的三条铁律</h4>
+      <p>1. <strong>坚持优先月付：</strong>无论服务商宣传多优惠，首次购买一律建议月付，降低风险。</p>
+      <p>2. <strong>注意节点倍率：</strong>确认套餐扣费是 1.0x 还是高倍率，避免流量莫名其妙耗尽。</p>
+      <p>3. <strong>检查设备在线数：</strong>确认个人手机、电脑或家庭多设备并发在线策略。</p>
+    </div>
+
+    <h2 class="section-title" style="margin-bottom: 1.5rem;">全部 28 个服务商品牌库一操导航</h2>
+    <div class="grid-3">
+      {providers.map((p, idx) => (
+        <ProviderCard provider={p} rank={idx + 1} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

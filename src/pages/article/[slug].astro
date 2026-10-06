@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ProviderCard from '../../components/ProviderCard.astro';
+import { articles, type Article } from '../../data/articles';
+import { providers } from '../../data/providers';
+
+export async function getStaticPaths() {
+  return articles.map(a => ({
+    params: { slug: a.slug },
+    props: { article: a }
+  }));
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+
+const breadcrumbs = [
+  { label: article.category, href: `/recommendations/` },
+  { label: article.title }
+];
+
+const matchedProviders = providers.filter(p => article.relatedProviders.includes(p.slug));
+const otherArticles = articles.filter(a => a.slug !== article.slug).slice(0, 3);
+---
+<BaseLayout
+  title={`${article.title} - 机场手册`}
+  description={article.description}
+  schemaType="Article"
+  publishDate={article.publishDate}
+  author={article.author}
+  breadcrumbItems={[
+    { name: article.category, url: 'https://jichangshouce.com/recommendations/' },
+    { name: article.title, url: `https://jichangshouce.com/article/${article.slug}/` }
+  ]}
+>
+  <article class="article-container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="article-header">
+      <span class="badge badge-amber" style="margin-bottom:0.6rem;">{article.category}</span>
+      <h1 class="article-title">{article.title}</h1>
+
+      <div class="article-meta">
+        <span>作者：{article.author}</span>
+        <span>•</span>
+        <span>发布日期：{article.publishDate}</span>
+        <span>•</span>
+        <span>阅读时长：约 {article.readTimeMinutes} 分钟</span>
+        <span>•</span>
+        <span>字数：约 {article.wordCount} 字</span>
+      </div>
+    </header>
+
+    <!-- Main HTML Content -->
+    <div class="article-body-content" set:html={article.contentHtml}></div>
+
+    <!-- Related Providers Section -->
+    {matchedProviders.length > 0 && (
+      <section style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-light);">
+        <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">与本文相关的品牌与服务参考</h3>
+        <div class="grid-2" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+          {matchedProviders.map(p => (
+            <ProviderCard provider={p} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Articles Section -->
+    <section style="margin-top: 3rem;">
+      <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">延伸阅读指南</h3>
+      <div class="grid-3" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+        {otherArticles.map(rel => (
+          <div class="card">
+            <h4 style="font-size:0.95rem;margin:0 0 0.4rem 0;">
+              <a href={`/article/${rel.slug}/`} style="color:var(--color-primary);text-decoration:none;">
+                {rel.title}
+              </a>
+            </h4>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">
+              {rel.description.substring(0, 50)}...
+            </p>
+            <a href={`/article/${rel.slug}/`} style="font-size:0.775rem;font-weight:600;margin-top:auto;">阅读 →</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .article-title {
+    font-size: 2.1rem;
+    line-height: 1.3;
+    margin-bottom: 0.85rem;
+  }
+  .article-meta {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .article-body-content {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: #2D2D2D;
+  }
+</style>

@@ -1,0 +1,420 @@
+---
+---
+<div class="decision-guide-card" id="wizard">
+  <div class="guide-header">
+    <span class="guide-badge">交互式选购向导</span>
+    <h3 class="guide-title">不知道怎么选机场？只需答对 4 道题</h3>
+    <p class="guide-desc">回答你的实际需求，向导将为你分析建议关注的流量配额、线路类型、客户端工具以及匹配的服务商组合，而不是盲目推销。</p>
+  </div>
+
+  <div class="guide-wizard-body" id="wizard-form">
+    <!-- Step 1 -->
+    <div class="wizard-step active" data-step="1">
+      <h4 class="step-question">1. 你每月大约需要消耗多少流量？</h4>
+      <div class="options-grid">
+        <label class="option-btn">
+          <input type="radio" name="traffic" value="low" checked />
+          <div class="option-content">
+            <strong>轻度使用 (50GB ~ 100GB/月)</strong>
+            <span>查资料、微信/TG聊天、用 ChatGPT、极少看高清视频</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="traffic" value="medium" />
+          <div class="option-content">
+            <strong>中度日常 (150GB ~ 300GB/月)</strong>
+            <span>每天看 1~2 小时 1080P/4K 视频、日常办公、刷社交媒体</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="traffic" value="high" />
+          <div class="option-content">
+            <strong>重度大流量 (400GB ~ 1TB+/月)</strong>
+            <span>高清 4K/8K 视频重度追剧、大文件下载、多设备共享</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="traffic" value="unlimited" />
+          <div class="option-content">
+            <strong>出差备用 / 不定时使用</strong>
+            <span>平时用得少，希望购买一次性不限时流量包防失联</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="wizard-step" data-step="2">
+      <h4 class="step-question">2. 你的主要上网设备与多设备需求？</h4>
+      <div class="options-grid">
+        <label class="option-btn">
+          <input type="radio" name="device" value="single" checked />
+          <div class="option-content">
+            <strong>单台个人设备 (1~2 台)</strong>
+            <span>主要在个人手机或一台电脑上使用</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="device" value="multi" />
+          <div class="option-content">
+            <strong>多设备同步在线 (3~5 台)</strong>
+            <span>手机、iPad、笔记本电脑同时需要连网</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="device" value="unlimited" />
+          <div class="option-content">
+            <strong>家庭/宿舍共享 (5台以上)</strong>
+            <span>多成员使用、包含 Apple TV 电视盒或软路由</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="wizard-step" data-step="3">
+      <h4 class="step-question">3. 你的主要用途与偏好优先项？</h4>
+      <div class="options-grid">
+        <label class="option-btn">
+          <input type="radio" name="priority" value="price" checked />
+          <div class="option-content">
+            <strong>追求极致性价比</strong>
+            <span>预算有限（￥20左右/月），能顺畅打不开网页即可</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="priority" value="stability" />
+          <div class="option-content">
+            <strong>追求全天稳定与低延迟 (IPLC 专线)</strong>
+            <span>晚高峰绝对不能卡顿，预算在 ￥30~￥40/月</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="priority" value="ai" />
+          <div class="option-content">
+            <strong>深度使用 ChatGPT / Claude AI 工具</strong>
+            <span>需要原生住宅 IP，防范 IP 被封阻断</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="wizard-step" data-step="4">
+      <h4 class="step-question">4. 你对客户端软件的配置熟练度？</h4>
+      <div class="options-grid">
+        <label class="option-btn">
+          <input type="radio" name="skill" value="beginner" checked />
+          <div class="option-content">
+            <strong>完全不懂配置的小白</strong>
+            <span>希望有自研一键客户端，输入账号密码就能用</span>
+          </div>
+        </label>
+        <label class="option-btn">
+          <input type="radio" name="skill" value="intermediate" />
+          <div class="option-content">
+            <strong>熟悉 Clash / 小火箭基础导入</strong>
+            <span>懂得如何复制订阅 URL 粘贴到客户端中</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="wizard-nav">
+      <button type="button" class="btn btn-outline" id="prev-btn" style="display: none;">上一步</button>
+      <button type="button" class="btn btn-primary" id="next-btn">下一步</button>
+    </div>
+  </div>
+
+  <!-- Output Result Panel -->
+  <div class="guide-result" id="result-panel" style="display: none;">
+    <h4 class="result-title">🎯 根据你的选择，为你生成的建议决策方案</h4>
+    <div class="result-grid">
+      <div class="result-card">
+        <h5>建议流量与套餐类型</h5>
+        <p id="res-plan">建议关注 150GB/月 左右的按月续费套餐。</p>
+      </div>
+      <div class="result-card">
+        <h5>建议关注的线路与协议</h5>
+        <p id="res-route">优先考虑包含 BGP 多线中转的节点。</p>
+      </div>
+      <div class="result-card">
+        <h5>建议了解的客户端</h5>
+        <p id="res-client">建议使用 Clash Verge Rev 或小火箭 (Shadowrocket)。</p>
+      </div>
+      <div class="result-card">
+        <h5>建议阅读的教程指南</h5>
+        <p id="res-guide"><a href="/beginner/">新手入门指南</a></p>
+      </div>
+    </div>
+
+    <div class="result-matched-brands">
+      <h5>符合你决策框架的参考品牌</h5>
+      <div class="matched-brand-tags" id="res-brands">
+        <a href="/service/langwang/" class="brand-tag">浪网 (VLESS / 自研客户端)</a>
+        <a href="/service/feimao/" class="brand-tag">飞猫云 (IPLC 专线)</a>
+        <a href="/service/2mao/" class="brand-tag">二猫云 2mao (不限设备)</a>
+      </div>
+    </div>
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+      <button type="button" class="btn btn-outline" id="restart-btn">重新测试</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .decision-guide-card {
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: 2.25rem;
+    box-shadow: var(--shadow-card);
+  }
+  .guide-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    background-color: var(--bg-surface-alt);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+  }
+  .guide-title {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .guide-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .wizard-step {
+    display: none;
+  }
+  .wizard-step.active {
+    display: block;
+  }
+  .step-question {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background-color: var(--bg-page);
+    transition: all 0.15s ease;
+  }
+  .option-btn:hover {
+    border-color: var(--color-accent);
+    background-color: var(--bg-surface-alt);
+  }
+  .option-btn input[type="radio"] {
+    margin-top: 0.2rem;
+    accent-color: var(--color-accent);
+  }
+  .option-content strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    margin-bottom: 0.2rem;
+  }
+  .option-content span {
+    font-size: 0.825rem;
+    color: var(--text-light);
+    line-height: 1.4;
+    display: block;
+  }
+  .wizard-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid var(--border-light);
+    padding-top: 1rem;
+  }
+  .result-title {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+  }
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .result-card {
+    background-color: var(--bg-surface-alt);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+  .result-card h5 {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+  }
+  .result-card p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+  .result-matched-brands {
+    background-color: var(--bg-page);
+    padding: 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+  .result-matched-brands h5 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .matched-brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .brand-tag {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+  }
+  .brand-tag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+</style>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  const formEl = document.getElementById('wizard-form');
+  const resultPanel = document.getElementById('result-panel');
+  const nextBtn = document.getElementById('next-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const restartBtn = document.getElementById('restart-btn');
+
+  function updateSteps() {
+    document.querySelectorAll('.wizard-step').forEach(step => {
+      const stepNum = parseInt(step.getAttribute('data-step') || '1', 10);
+      if (stepNum === currentStep) {
+        step.classList.add('active');
+      } else {
+        step.classList.remove('active');
+      }
+    });
+
+    if (prevBtn) {
+      prevBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+    }
+    if (nextBtn) {
+      nextBtn.textContent = currentStep === totalSteps ? '生成方案' : '下一步';
+    }
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateSteps();
+      } else {
+        calculateResult();
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateSteps();
+      }
+    });
+  }
+
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      currentStep = 1;
+      updateSteps();
+      if (formEl) formEl.style.display = 'block';
+      if (resultPanel) resultPanel.style.display = 'none';
+    });
+  }
+
+  function calculateResult() {
+    const traffic = (document.querySelector('input[name="traffic"]:checked') as HTMLInputElement)?.value;
+    const device = (document.querySelector('input[name="device"]:checked') as HTMLInputElement)?.value;
+    const priority = (document.querySelector('input[name="priority"]:checked') as HTMLInputElement)?.value;
+    const skill = (document.querySelector('input[name="skill"]:checked') as HTMLInputElement)?.value;
+
+    const resPlan = document.getElementById('res-plan');
+    const resRoute = document.getElementById('res-route');
+    const resClient = document.getElementById('res-client');
+    const resGuide = document.getElementById('res-guide');
+    const resBrands = document.getElementById('res-brands');
+
+    if (resPlan) {
+      if (traffic === 'low') resPlan.textContent = '建议关注 100GB/月 左右的月付基础套餐 (￥15~￥25/月)。';
+      else if (traffic === 'medium') resPlan.textContent = '建议关注 150GB~300GB/月 主流档套餐 (￥28~￥40/月)。';
+      else if (traffic === 'high') resPlan.textContent = '建议关注 400GB~1TB/月 大流量套餐或多设备商业包。';
+      else resPlan.textContent = '建议关注一次性不限时流量包（如浪网一次性包），按量扣费不过期。';
+    }
+
+    if (resRoute) {
+      if (priority === 'stability') resRoute.textContent = '强烈建议选择具备 IPLC / IEPL 物理专线的服务商。';
+      else if (priority === 'ai') resRoute.textContent = '需要包含原生住宅 IP 节点的线路，确保 ChatGPT/Claude 畅通。';
+      else resRoute.textContent = 'BGP 多线智能中转节点即可满足需求。';
+    }
+
+    if (resClient) {
+      if (skill === 'beginner') resClient.textContent = '推荐支持自研一键登录客户端的服务商（如浪网）。';
+      else resClient.textContent = '推荐使用 Clash Verge Rev (电脑) 或 小火箭 Shadowrocket (iOS)。';
+    }
+
+    if (resGuide && resBrands) {
+      resGuide.innerHTML = '<a href="/beginner/" style="color:var(--color-accent);font-weight:bold;">阅读：机场推荐怎么选？小白避坑指南</a>';
+      
+      let brandHtml = '';
+      if (priority === 'stability' || traffic === 'high') {
+        brandHtml += '<a href="/service/langwang/" class="brand-tag">浪网 (BGP专线/自研客户端)</a>';
+        brandHtml += '<a href="/service/feimao/" class="brand-tag">飞猫云 (IPLC专线/2.5Gbps)</a>';
+        brandHtml += '<a href="/service/flyv/" class="brand-tag">FlyV (IEPL专线/Hysteria2)</a>';
+      } else if (device === 'unlimited' || device === 'multi') {
+        brandHtml += '<a href="/service/2mao/" class="brand-tag">二猫云 2mao (不限设备/60+节点)</a>';
+        brandHtml += '<a href="/service/feimao/" class="brand-tag">飞猫云 (多设备支持)</a>';
+        brandHtml += '<a href="/service/u1s1/" class="brand-tag">U1S1 (多设备宽松)</a>';
+      } else {
+        brandHtml += '<a href="/service/langwang/" class="brand-tag">浪网 (全节点1倍率)</a>';
+        brandHtml += '<a href="/service/muguang/" class="brand-tag">暮光加速 (高速中转)</a>';
+        brandHtml += '<a href="/service/laddercloud/" class="brand-tag">梯子云 (高性价比)</a>';
+      }
+      resBrands.innerHTML = brandHtml;
+    }
+
+    if (formEl) formEl.style.display = 'none';
+    if (resultPanel) resultPanel.style.display = 'block';
+  }
+</script>

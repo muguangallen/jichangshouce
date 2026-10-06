@@ -1,0 +1,66 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  schemaType?: 'WebSite' | 'Article' | 'CollectionPage' | 'Service' | 'FAQPage';
+  publishDate?: string;
+  author?: string;
+  breadcrumbItems?: { name: string; url: string }[];
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = Astro.url.href,
+  schemaType = 'WebSite',
+  publishDate,
+  author,
+  breadcrumbItems
+} = Astro.props;
+
+const siteTitle = title.includes('机场手册') ? title : `${title} - 机场手册`;
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="机场手册" />
+
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Schema.org JSON-LD -->
+    <SchemaOrg 
+      type={schemaType}
+      title={siteTitle}
+      description={description}
+      url={canonicalUrl}
+      publishDate={publishDate}
+      author={author}
+      breadcrumbItems={breadcrumbItems}
+    />
+  </head>
+  <body>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

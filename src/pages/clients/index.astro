@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const breadcrumbs = [{ label: '客户端教程' }];
+---
+<BaseLayout
+  title="客户端教程总览 - Windows / Mac / iOS / Android 科学上网配置"
+  description="涵盖 Clash Verge Rev、Shadowrocket (小火箭)、V2RayNG、sing-box、Stash 等主流客户端的安装、订阅导入、TUN 模式及故障排障教程。"
+  schemaType="CollectionPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">全平台客户端下载与教程总览</h1>
+      <p class="section-desc">
+        无论你使用的是 Windows 电脑、Mac 苹果电脑、iPhone 还是安卓手机，均可在此找到最适合你的开源客户端与小白导入教程。
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="badge badge-amber" style="width:fit-content;margin-bottom:0.5rem;">PC 桌面端</span>
+        <h3 class="card-title">Windows 客户端教程</h3>
+        <p class="card-body">
+          首推开源客户端 <strong>Clash Verge Rev</strong>。内置简体中文界面，适配最新 Mihomo 内核，支持一键开机自启与系统 TUN 虚拟网卡模式。
+        </p>
+        <a href="/clients/windows/" class="btn btn-primary btn-sm">查看 Windows 详细配置教程 →</a>
+      </div>
+
+      <div class="card">
+        <span class="badge badge-amber" style="width:fit-content;margin-bottom:0.5rem;">Mac 桌面端</span>
+        <h3 class="card-title">macOS 苹果电脑教程</h3>
+        <p class="card-body">
+          推荐使用 <strong>Stash for Mac</strong> 或 <strong>Clash Verge Rev (macOS 版)</strong>。完美适配 Apple Silicon M 系列芯片，菜单栏快捷切换。
+        </p>
+        <a href="/clients/macos/" class="btn btn-primary btn-sm">查看 macOS 详细配置教程 →</a>
+      </div>
+
+      <div class="card">
+        <span class="badge badge-green" style="width:fit-content;margin-bottom:0.5rem;">iOS 移动端</span>
+        <h3 class="card-title">iOS (iPhone / iPad) 教程</h3>
+        <p class="card-body">
+          推荐使用 <strong>Shadowrocket (小火箭)</strong>、Stash 或 Quantumult X。需在非中国区 App Store 下载，支持扫码与一键同步导入。
+        </p>
+        <a href="/clients/ios/" class="btn btn-primary btn-sm">查看 iOS 小火箭导入教程 →</a>
+      </div>
+
+      <div class="card">
+        <span class="badge badge-green" style="width:fit-content;margin-bottom:0.5rem;">Android 移动端</span>
+        <h3 class="card-title">Android 安卓手机教程</h3>
+        <p class="card-body">
+          推荐使用 <strong>V2RayNG</strong> 或 <strong>sing-box</strong>。详解如何解决系统“电池优化”杀后台断网问题。
+        </p>
+        <a href="/clients/android/" class="btn btn-primary btn-sm">查看 Android 配置与防杀后台教程 →</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { label: '客户端教程', href: '/clients/' },
+  { label: 'Windows 教程' }
+];
+---
+<BaseLayout
+  title="Windows 平台 Clash Verge Rev 教程与配置指南"
+  description="Windows 电脑使用 Clash Verge Rev 的全套图文教程：从开源客户端下载、中文界面切换、机场订阅一键导入到开启 TUN 模式排障。"
+  schemaType="Article"
+>
+  <div class="article-container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <h1>Windows 平台 Clash Verge Rev 配置教程</h1>
+    <div class="editorial-lead">
+      <p>Clash Verge Rev 是目前 Windows 系统上功能最强大、界面最现代且完全开源的代理客户端。本文为你梳理从安装到日常连通的全套步骤。</p>
+    </div>
+
+    <ol class="step-list" style="line-height:2;">
+      <li>
+        <strong>安装软件：</strong>前往 GitHub Release 官方页面下载可执行安装包 <code>Clash.Verge_x64-setup.exe</code> 完成安装。
+      </li>
+      <li>
+        <strong>切换中文界面：</strong>打开软件，点击左侧菜单栏的 <strong>Settings (设置)</strong> -> 找到 Language 选项，选择 <strong>简体中文</strong>。
+      </li>
+      <li>
+        <strong>导入机场订阅：</strong>
+        <ul>
+          <li>登录你的机场官网后台，点击“一键导入 Clash”按钮；</li>
+          <li>或者在 Clash Verge 点击左侧“订阅” -> 在上方 URL 输入框中粘贴复制的订阅链接，点击“导入”。</li>
+        </ul>
+      </li>
+      <li>
+        <strong>选择节点与开启代理：</strong>
+        <ul>
+          <li>点击左侧“代理”菜单，在节点列表中选择一个延迟较低的节点（如香港或日本节点）；</li>
+          <li>勾选界面右上角的 <strong>系统代理</strong> 开关即可开始上网。</li>
+        </ul>
+      </li>
+      <li>
+        <strong>开启 TUN 虚拟网卡模式 (可选进阶)：</strong>
+        如果你需要玩外服游戏或让 CMD 命令终端也走代理，可在设置中安装 Service Mode 服务模式，然后开启“TUN 模式”开关。
+      </li>
+    </ol>
+
+    <div class="info-box">
+      <h4>⚠️ 常见故障排障</h4>
+      <p><strong>问题：软件关掉后电脑断网打不开网页？</strong><br>
+      解答：由于非正常退出导致 Windows 系统代理未关。打开 Windows 设置 -> 网络和 Internet -> 代理，关闭“使用代理服务器”手动开关即可恢复。</p>
+    </div>
+  </div>
+</BaseLayout>

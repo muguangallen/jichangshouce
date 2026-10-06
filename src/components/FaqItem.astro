@@ -1,0 +1,83 @@
+---
+import type { FaqItem as FaqType } from '../data/faq';
+
+interface Props {
+  faq: FaqType;
+  defaultOpen?: boolean;
+}
+
+const { faq, defaultOpen = true } = Astro.props;
+---
+<details class="faq-accordion-item" open={defaultOpen ? true : undefined}>
+  <summary class="faq-summary">
+    <span class="faq-cat-badge">{faq.category}</span>
+    <span class="faq-question-text">Q{faq.id}. {faq.question}</span>
+    <span class="faq-icon">▼</span>
+  </summary>
+  <div class="faq-answer-body" set:html={faq.answerHtml}></div>
+</details>
+
+<style>
+  .faq-accordion-item {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.85rem;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .faq-accordion-item[open] {
+    border-color: var(--border-medium);
+  }
+  .faq-summary {
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    list-style: none;
+    user-select: none;
+  }
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-cat-badge {
+    font-size: 0.725rem;
+    font-weight: 600;
+    color: var(--text-light);
+    background-color: var(--bg-surface-alt);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .faq-question-text {
+    flex-grow: 1;
+  }
+  .faq-icon {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    transition: transform 0.2s ease;
+  }
+  .faq-accordion-item[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+  .faq-answer-body {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    border-top: 1px dashed var(--border-light);
+    margin-top: 0.25rem;
+    padding-top: 1rem;
+  }
+  .faq-answer-body p {
+    margin-bottom: 0.75rem;
+  }
+  .faq-answer-body ul, .faq-answer-body ol {
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
+  }
+</style>

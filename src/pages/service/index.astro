@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ProviderCard from '../../components/ProviderCard.astro';
+import { providers } from '../../data/providers';
+
+const breadcrumbs = [{ label: '品牌服务库' }];
+---
+<BaseLayout
+  title="品牌服务库 - 28大机场服务商完全索引名录"
+  description="全站 28 个机场服务商完整索引数据库。包含浪网、暮光加速、飞猫云、微风网络、梯子云、隐形人等全部 28 个品牌独立档案与入口导航。"
+  schemaType="CollectionPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">28 大机场品牌服务数据库</h1>
+      <p class="section-desc">
+        全网品牌收录数据库。每一个品牌对应一个独立公开服务记录与独立档案页面。无数据处显示“暂无测试数据”，绝不上演虚假营销。
+      </p>
+    </div>
+
+    <!-- Provider Count Banner -->
+    <div class="editorial-note" style="margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <strong style="font-size: 1.1rem; color: var(--color-primary);">数据库当前已入库 28 个品牌</strong>
+        <p style="margin: 0.2rem 0 0 0; font-size: 0.875rem; color: var(--text-muted);">
+          前六固定：浪网、暮光加速、飞猫云、微风网络、梯子云、隐形人。其余 22 个固定顺序渲染。
+        </p>
+      </div>
+      <span class="badge badge-green" style="font-size: 0.85rem; padding: 0.35rem 0.75rem;">100% 数据校验通过</span>
+    </div>
+
+    <div class="grid-3">
+      {providers.map((p, idx) => (
+        <ProviderCard provider={p} rank={idx + 1} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { terms } from '../../data/encyclopedia';
+import { articles } from '../../data/articles';
+
+const routeTerms = terms.filter(t => t.category === '线路原理' || t.category === '传输协议');
+const routeArticles = articles.filter(a => a.category === '节点线路' || a.slug.includes('iplc') || a.slug.includes('bgp'));
+const breadcrumbs = [{ label: '节点线路' }];
+---
+<BaseLayout
+  title="节点线路 - 香港/日本/美区节点特点与 IPLC/IEPL 专线解析"
+  description="详细解析香港、台湾、日本、新加坡、美国等主流节点的使用场景，并普及 IPLC 专线、IEPL 专线、BGP 中转与 Hysteria 2 协议原理。"
+  schemaType="CollectionPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">节点地区与线路原理大白话</h1>
+      <p class="section-desc">
+        节点不等于速度，延迟不等于带宽。搞懂节点地区锁区规则与 IPLC 专线传输原理。
+      </p>
+    </div>
+
+    <!-- Region Overview -->
+    <div class="grid-2" style="margin-bottom: 3rem;">
+      <div class="card">
+        <h3 class="card-title">🇭🇰 香港节点 (Hong Kong)</h3>
+        <p class="card-body">
+          • <strong>物理延迟：</strong>极低 (15ms ~ 35ms)，网页打开瞬间响应。<br>
+          • <strong>最佳用途：</strong>日常浏览、Twitter、YouTube 4K、国内应用绕过。<br>
+          • <strong>注意事项：</strong>部分服务（如 ChatGPT 及某些锁区手游）封锁了香港 IP。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🇯🇵 日本节点 (Japan)</h3>
+        <p class="card-body">
+          • <strong>物理延迟：</strong>较低 (40ms ~ 65ms)，网络极度稳定。<br>
+          • <strong>最佳用途：</strong>ChatGPT / Claude AI 全无障碍、DMM、Pixiv、日服游戏。<br>
+          • <strong>注意事项：</strong>建议优先选择支持原生住宅 IP 解锁的节点。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🇸🇬 新加坡节点 (Singapore)</h3>
+        <p class="card-body">
+          • <strong>物理延迟：</strong>中等 (50ms ~ 80ms)。<br>
+          • <strong>最佳用途：</strong>东南亚串流、Disney+ 完整解锁、TikTok 运营、通用 AI 对话。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🇺🇸 美国节点 (United States)</h3>
+        <p class="card-body">
+          • <strong>物理延迟：</strong>稍高 (130ms ~ 180ms)。<br>
+          • <strong>最佳用途：</strong>带宽体量巨大、流媒体解锁最全、海量原生 IP。<br>
+          • <strong>注意事项：</strong>不适合玩对 Ping 敏感的竞技游戏，但非常适合下载与看 4K。
+        </p>
+      </div>
+    </div>
+
+    <!-- Route Terms -->
+    <h2 class="section-title" style="margin-bottom: 1.5rem;">核心线路技术词典</h2>
+    <div class="grid-3" style="margin-bottom: 3rem;">
+      {routeTerms.map(term => (
+        <div class="card">
+          <span class="badge badge-green" style="width:fit-content;margin-bottom:0.4rem;">{term.category}</span>
+          <h4 style="margin:0 0 0.4rem 0;">{term.term} ({term.englishTerm})</h4>
+          <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
+            {term.plainExplanation}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Route Articles -->
+    <h2 class="section-title">线路与节点深度指南</h2>
+    <div class="grid-3">
+      {routeArticles.map(article => (
+        <div class="card">
+          <span class="badge" style="width:fit-content;margin-bottom:0.5rem;">{article.category}</span>
+          <h3 class="card-title" style="font-size:1.1rem;">
+            <a href={`/article/${article.slug}/`} style="color:var(--color-primary);text-decoration:none;">
+              {article.title}
+            </a>
+          </h3>
+          <p class="card-body" style="font-size:0.875rem;">
+            {article.description}
+          </p>
+          <a href={`/article/${article.slug}/`} style="font-size:0.85rem;font-weight:600;margin-top:auto;">阅读全文 →</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

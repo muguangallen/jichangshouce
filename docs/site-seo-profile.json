@@ -1,0 +1,37 @@
+{
+  "siteName": "机场手册",
+  "siteSubtitle": "机场推荐、梯子选择与网络工具使用指南",
+  "siteUrl": "https://jichangshouce.com",
+  "positioning": "Editorial Consumer Guide",
+  "description": "面向普通中文用户，整理机场、梯子、节点、线路、套餐和客户端资料，并通过编辑型文章帮助用户理解不同网络服务的使用场景与选择方法。",
+  "targetAudience": [
+    "第一次接触机场和梯子的小白用户",
+    "不知道如何挑选适合自己套餐的用户",
+    "对 Clash、Shadowrocket、sing-box 导入订阅有疑惑的用户",
+    "希望了解 IPLC / IEPL 专线原理与节点差异的用户"
+  ],
+  "visualTheme": {
+    "style": "Editorial Magazine + Consumer Guide",
+    "primaryColor": "#1E293B",
+    "accentColor": "#C85A17",
+    "backgroundColor": "#FBF9F5",
+    "surfaceColor": "#FFFFFF",
+    "textColor": "#1C1D1F",
+    "secondaryTextColor": "#52525B"
+  },
+  "primaryKeywords": [
+    "机场推荐",
+    "梯子推荐",
+    "魔法机场",
+    "稳定机场",
+    "性价比机场",
+    "机场测评",
+    "节点推荐",
+    "Clash机场推荐",
+    "新手机场推荐",
+    "客户端教程"
+  ],
+  "monetizationDisclosure": "部分服务页面包含邀请或推广链接，点击或注册可能为本站带来合作收益。价格、套餐与服务状态可能变化，请以第三方当前页面为准。",
+  "affiliateRelPolicy": "sponsored nofollow noopener",
+  "lastUpdated": "2026-09-25T18:10:51+08:00"
+}

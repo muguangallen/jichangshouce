@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { label: '客户端教程', href: '/clients/' },
+  { label: 'macOS 教程' }
+];
+---
+<BaseLayout
+  title="macOS 平台 Stash & Clash 优雅配置指南"
+  description="针对 Apple Mac 苹果电脑，对比 Stash for Mac 与 Clash Verge 的适配效果，讲解导入订阅与顶部菜单栏控制技巧。"
+  schemaType="Article"
+>
+  <div class="article-container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <h1>macOS 苹果电脑代理客户端配置指南</h1>
+    <div class="editorial-lead">
+      <p>Mac 用户追求系统整合度与流畅体验。本文介绍如何在 macOS 平台上优雅使用代理软件。</p>
+    </div>
+
+    <h2>一、 推荐客户端</h2>
+    <p>1. <strong>Stash for macOS：</strong>界面极其精致，原生适配 M1/M2/M3 Apple Silicon 芯片。<br>
+    2. <strong>Clash Verge Rev (macOS DMG)：</strong>完全开源免费，内核功能全面。</p>
+
+    <h2>二、 导入与权限设置步骤</h2>
+    <ol style="line-height:2;">
+      <li>下载并拖拽安装 DMG 文件至 Applications 文件夹。</li>
+      <li>首次打开时根据系统提示，在系统设置 -> 隐私与安全性中允许运行。</li>
+      <li>复制机场订阅 URL，在 Profiles/订阅 页面点击 Add 添加。</li>
+      <li>开启 System Proxy 允许应用修改系统代理。</li>
+    </ol>
+  </div>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { label: '机场推荐', href: '/recommendations/' },
+  { label: '新手入门', href: '/beginner/' },
+  { label: '套餐选择', href: '/plans/' },
+  { label: '节点线路', href: '/nodes/' },
+  { label: '客户端教程', href: '/clients/' },
+  { label: '机场测评', href: '/reviews/' },
+  { label: '优惠信息', href: '/coupons/' },
+  { label: '常见问题', href: '/faq/' },
+  { label: '品牌服务库', href: '/service/' },
+  { label: '术语词典', href: '/encyclopedia/' }
+];
+
+function isActive(href: string) {
+  if (href === '/' && pathname === '/') return true;
+  if (href !== '/' && pathname.startsWith(href)) return true;
+  return false;
+}
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand-logo" title="机场手册 - 首页">
+      <span class="brand-name">机场手册</span>
+      <span class="brand-tagline">机场推荐、梯子选择与网络工具使用指南</span>
+    </a>
+
+    <button class="mobile-menu-btn" id="mobile-toggle" aria-label="切换导航菜单">
+      ☰ 菜单
+    </button>
+
+    <nav class="main-nav" id="nav-menu">
+      {navItems.map(item => (
+        <a 
+          href={item.href} 
+          class={`nav-link ${isActive(item.href) ? 'active' : ''}`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/recommendations/#wizard" class="nav-link nav-cta">选机场向导</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  if (toggleBtn && navMenu) {
+    toggleBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('is-open');
+    });
+  }
+</script>

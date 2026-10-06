@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const breadcrumbs = [
+  { label: '客户端教程', href: '/clients/' },
+  { label: 'Android 教程' }
+];
+---
+<BaseLayout
+  title="Android 平台 V2RayNG & sing-box 教程与防杀后台设置"
+  description="安卓手机使用 V2RayNG 或 sing-box 客户端导入机场订阅指南，详解如何解决电池优化杀进程导致的后台断网问题。"
+  schemaType="Article"
+>
+  <div class="article-container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <h1>Android 平台代理客户端教程</h1>
+    <div class="editorial-lead">
+      <p>安卓手机拥有丰富的开源客户端，最常用的是 V2RayNG 与 sing-box。本文讲解导入与防杀后台技巧。</p>
+    </div>
+
+    <h2>一、 下载与导入</h2>
+    <ol style="line-height:2;">
+      <li>在 GitHub 发布页下载 APK 安装包并安装到手机。</li>
+      <li>复制机场订阅 URL，打开 V2RayNG 点击左侧菜单 -> 订阅设置 -> 点击“+”号添加。</li>
+      <li>返回主界面，点击右上角三点菜单 -> <strong>更新订阅</strong>。</li>
+      <li>选择节点并点击右下角 V 字图标开启连接。</li>
+    </ol>
+
+    <h2>二、 解决系统“电池优化”杀后台断网秘籍</h2>
+    <p>打开系统设置 -> 应用管理 -> 找到 V2RayNG：<br>
+    • 将省电策略修改为 <strong>无限制 / 不优化</strong>。<br>
+    • 开启允许后台自启与关联启动，确保切换应用时不会被切断网络。</p>
+  </div>
+</BaseLayout>

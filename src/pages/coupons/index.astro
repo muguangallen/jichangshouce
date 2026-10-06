@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import { providers } from '../../data/providers';
+
+const providersWithCoupons = providers.filter(p => p.coupon);
+const breadcrumbs = [{ label: '优惠信息' }];
+---
+<BaseLayout
+  title="机场优惠码 - 2026 最新机场折扣码与促销活动合集"
+  description="汇总各大机场服务商的最新优惠码、折扣代码与限时促销活动信息，包含 FlyV 专属 8 折优惠码 fly20 等。"
+  schemaType="CollectionPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">2026 最新机场优惠码与折扣合集</h1>
+      <p class="section-desc">
+        收集整理品牌服务商公开的打折优惠码与活动信息。在结账页面输入优惠码即可直接享受价格减免。
+      </p>
+    </div>
+
+    {providersWithCoupons.length > 0 ? (
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        {providersWithCoupons.map(provider => (
+          <div class="card" style="border-left: 4px solid var(--color-amber);">
+            <span class="badge badge-amber" style="width:fit-content;margin-bottom:0.5rem;">优惠码活动</span>
+            <h3 class="card-title">{provider.name} 专属折扣</h3>
+            <p class="card-body">
+              {provider.description}<br><br>
+              🎉 <strong>优惠代码：</strong><code style="font-size:1.1rem;background:var(--bg-surface-alt);padding:0.2rem 0.5rem;border-radius:4px;color:var(--color-accent);">{provider.coupon}</code>
+            </p>
+            <div style="display:flex;gap:0.75rem;margin-top:auto;">
+              <a href={`/service/${provider.slug}/`} class="btn btn-outline btn-sm">查看品牌详情</a>
+              <AffiliateLink href={provider.affiliateUrl} class="btn btn-primary btn-sm">领券购买 ↗</AffiliateLink>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : null}
+
+    <h2 class="section-title">全站 28 个服务商公开入口快捷导航</h2>
+    <div class="grid-3">
+      {providers.map(p => (
+        <div class="card">
+          <h4 style="margin:0 0 0.4rem 0;color:var(--color-primary);">{p.name}</h4>
+          <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.5;margin-bottom:1rem;">
+            {p.description}
+          </p>
+          <div style="margin-top:auto;display:flex;gap:0.5rem;">
+            <a href={`/service/${p.slug}/`} class="btn btn-outline btn-sm">详情</a>
+            <AffiliateLink href={p.affiliateUrl} class="btn btn-primary btn-sm">直达 ↗</AffiliateLink>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

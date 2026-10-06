@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqItem from '../../components/FaqItem.astro';
+import { faqs } from '../../data/faq';
+
+const categories = [
+  '全部问题',
+  '机场推荐 / 选择',
+  'Clash / 订阅',
+  'SS',
+  'Trojan',
+  '梯子 / 魔法机场 / 魔法上网',
+  '节点 / 地区 / 线路',
+  '套餐 / 价格 / 优惠',
+  '设备 / 导入',
+  '排障 / 安全 / 购买前'
+];
+
+const breadcrumbs = [{ label: '常见问题 (FAQ)' }];
+---
+<BaseLayout
+  title="常见问题 (FAQ) - 100个机场选购与使用解答库"
+  description="预置恰好 100 个静态 HTML 预渲染 FAQ 完整问答，涵盖机场挑选、Clash 导入、Shadowrocket 小火箭配置、IPLC 专线与故障排障全集中。"
+  schemaType="FAQPage"
+>
+  <div class="container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <div class="section-header">
+      <h1 class="section-title">100 个机场常见问题解答库 (FAQ)</h1>
+      <p class="section-desc">
+        全静态预渲染，彻底避免薄内容。请根据分类筛选或查阅你所关心的问答。
+      </p>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="faq-category-bar" id="category-bar">
+      {categories.map((cat, idx) => (
+        <button 
+          type="button" 
+          class={`cat-tab ${idx === 0 ? 'active' : ''}`}
+          data-category={cat}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- 100 FAQ items -->
+    <div class="faq-full-list" id="faq-list">
+      {faqs.map(faq => (
+        <div class="faq-wrapper" data-cat={faq.category}>
+          <FaqItem faq={faq} defaultOpen={true} />
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .faq-category-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background-color: var(--bg-surface);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+  }
+  .cat-tab {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-medium);
+    background-color: var(--bg-page);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .cat-tab:hover, .cat-tab.active {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll('.cat-tab');
+  const items = document.querySelectorAll('.faq-wrapper');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const targetCat = tab.getAttribute('data-category');
+
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-cat');
+        if (targetCat === '全部问题' || itemCat === targetCat) {
+          (item as HTMLElement).style.display = 'block';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

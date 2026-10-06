@@ -1,0 +1,57 @@
+---
+interface Item {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+<nav class="breadcrumb-nav" aria-label="面包屑导航">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/">首页</a>
+    </li>
+    {items.map((item, index) => (
+      <li class="breadcrumb-item">
+        <span class="sep">/</span>
+        {item.href && index < items.length - 1 ? (
+          <a href={item.href}>{item.label}</a>
+        ) : (
+          <span class="current">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb-nav {
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+  }
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-light);
+  }
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+  .sep {
+    margin: 0 0.4rem;
+    color: var(--border-medium);
+  }
+  .current {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+</style>

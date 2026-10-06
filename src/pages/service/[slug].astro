@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import FaqItem from '../../components/FaqItem.astro';
+import { providers, type Provider } from '../../data/providers';
+import { faqs } from '../../data/faq';
+
+export async function getStaticPaths() {
+  return providers.map(p => ({
+    params: { slug: p.slug },
+    props: { provider: p }
+  }));
+}
+
+interface Props {
+  provider: Provider;
+}
+
+const { provider } = Astro.props;
+
+const breadcrumbs = [
+  { label: '品牌服务库', href: '/service/' },
+  { label: provider.name }
+];
+
+const relatedFaqList = faqs.slice(0, 4);
+---
+<BaseLayout
+  title={`${provider.displayName} - 机场档案、套餐价格与线路测评 - 机场手册`}
+  description={`${provider.displayName} 品牌独立档案：涵盖 ${provider.name} 线路类型（${provider.routes.join('/')}）、套餐价格、协议客户端兼容、流媒体/AI 解锁能力及注册入口。`}
+  schemaType="Service"
+>
+  <div class="article-container section">
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- Brand Guide Header -->
+    <header class="brand-guide-header">
+      <span class="badge badge-green" style="margin-bottom: 0.5rem;">{provider.sourceType}</span>
+      <h1 style="margin-bottom: 0.5rem;">{provider.displayName}</h1>
+      <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+        {provider.description}
+      </p>
+
+      <div class="brand-meta-bar">
+        <span>档案更新：{provider.updatedAt}</span>
+        <span>•</span>
+        <span>状态查验：{provider.lastCheckedAt}</span>
+      </div>
+    </header>
+
+    <!-- Quick Conclusion -->
+    <div class="editorial-note">
+      <h4>📌 快速结论与编辑定位</h4>
+      <p>
+        {provider.name} 主要采用 <strong>{provider.routes.join(' / ')}</strong> 线路，支持 {provider.protocols.join(', ')} 传输协议。
+        {provider.coupon ? `目前提供优惠码：${provider.coupon}。` : ''}
+        该服务商综合特点包含：{provider.features.join('、')}。
+      </p>
+    </div>
+
+    <!-- Recommended For -->
+    <h2>一、 适合人群</h2>
+    <ul>
+      {provider.recommendedFor.map(item => (
+        <li>{item}</li>
+      ))}
+    </ul>
+
+    <!-- Plans & Pricing Table -->
+    <h2>二、 套餐与价格明细</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>套餐名称</th>
+          <th>价格</th>
+          <th>包含流量</th>
+          <th>计费周期</th>
+        </tr>
+      </thead>
+      <tbody>
+        {provider.plans.map(plan => (
+          <tr>
+            <td><strong>{plan.name}</strong></td>
+            <td style="color:var(--color-accent);font-weight:bold;">{plan.price}</td>
+            <td>{plan.traffic}</td>
+            <td>{plan.period}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <!-- Specification Matrix Table -->
+    <h2>三、 核心规格参数</h2>
+    <table class="data-table">
+      <tbody>
+        <tr>
+          <td style="width:140px;font-weight:bold;">线路与中转</td>
+          <td>{provider.routes.join(' / ')}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">节点地区</td>
+          <td>{provider.regions.join('、')} (共 {provider.nodesCount} 节点)</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">加密协议</td>
+          <td>{provider.protocols.join(', ')}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">客户端兼容</td>
+          <td>{provider.clients.join(' / ')}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">流媒体解锁</td>
+          <td>{provider.streaming}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">AI 工具解锁</td>
+          <td>{provider.aiServices}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">设备限制</td>
+          <td>{provider.deviceLimit}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold;">实测数据说明</td>
+          <td style="color:var(--text-light);">{provider.testDataNote}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Source Note Disclosure -->
+    {provider.sourceNote && (
+      <div class="info-box">
+        <h4>📝 数据源纠错说明</h4>
+        <p>{provider.sourceNote}</p>
+      </div>
+    )}
+
+    <!-- Affiliate Entry CTA Section -->
+    <h2>四、 服务入口与商业披露</h2>
+    <p style="font-size:0.9rem;color:var(--text-muted);">
+      部分服务页面包含邀请或推广链接，点击或注册可能为本站带来合作收益。价格、套餐与服务状态可能变化，请以第三方当前公开页面为准。
+    </p>
+
+    <div class="brand-cta-box">
+      <div>
+        <h4 style="margin:0 0 0.2rem 0;color:var(--color-primary);">{provider.name} 公开服务入口</h4>
+        <p style="margin:0;font-size:0.85rem;color:var(--text-muted);">前往第三方官网查看最新套餐与注册</p>
+      </div>
+      <AffiliateLink href={provider.affiliateUrl} class="btn btn-primary">
+        访问 {provider.name} 官网 ↗
+      </AffiliateLink>
+    </div>
+
+    <!-- Related FAQs -->
+    <h2 style="margin-top:2.5rem;">五、 相关常见问题 (FAQ)</h2>
+    {relatedFaqList.map(faq => (
+      <FaqItem faq={faq} defaultOpen={true} />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .brand-guide-header {
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .brand-meta-bar {
+    font-size: 0.825rem;
+    color: var(--text-light);
+    display: flex;
+    gap: 0.5rem;
+  }
+  .brand-cta-box {
+    background-color: var(--bg-surface-alt);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+</style>

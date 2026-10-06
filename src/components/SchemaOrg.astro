@@ -1,0 +1,80 @@
+---
+interface Props {
+  type: 'WebSite' | 'Article' | 'CollectionPage' | 'Service' | 'FAQPage';
+  title: string;
+  description: string;
+  url: string;
+  publishDate?: string;
+  author?: string;
+  breadcrumbItems?: { name: string; url: string }[];
+}
+
+const { type, title, description, url, publishDate, author, breadcrumbItems } = Astro.props;
+
+const siteUrl = 'https://jichangshouce.com';
+
+const schemas: any[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'name': '机场手册',
+    'url': siteUrl,
+    'logo': `${siteUrl}/favicon.svg`,
+    'description': '机场推荐、梯子选择与网络工具使用指南'
+  }
+];
+
+if (type === 'WebSite') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    'name': '机场手册',
+    'url': siteUrl,
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': `${siteUrl}/faq/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  });
+}
+
+if (type === 'Article') {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    'headline': title,
+    'description': description,
+    'url': url,
+    'datePublished': publishDate || '2026-09-20',
+    'dateModified': publishDate || '2026-09-25',
+    'author': {
+      '@type': 'Organization',
+      'name': author || '机场手册编辑部'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': '机场手册',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${siteUrl}/favicon.svg`
+      }
+    }
+  });
+}
+
+if (breadcrumbItems && breadcrumbItems.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': breadcrumbItems.map((item, index) => ({
+      '@type': 'ListItem',
+      'position': index + 1,
+      'name': item.name,
+      'item': item.url
+    }))
+  });
+}
+---
+{schemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+))}
